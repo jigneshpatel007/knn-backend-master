@@ -21,4 +21,8 @@ router.get('/:id', (req: express.Request, res: express.Response) =>
   subscriptionController.getSubscription(req, res),
 );
 
+router.get('/', (req: express.Request, res: express.Response) =>
+  subscriptionController.getAllSubscription(req, res),
+);
+
 export default router;

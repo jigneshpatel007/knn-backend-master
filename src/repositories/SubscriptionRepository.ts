@@ -62,4 +62,36 @@ export class SubscriptionRepository implements ISubscriptionRepository {
       await this._databaseService.disconnect();
     }
   }
+
+  async getAllSubscription(): Promise<GetSubscription[]> {
+    try {
+      // Get the database client
+      const client = this._databaseService.Client();
+
+      const subscription = await client.subscription.findMany({
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          type: true,
+          noOfBook: true,
+          price: true,
+          createdAt: false,
+          createdBy: false,
+          updatedAt: false,
+        },
+      });
+
+      return subscription;
+    } catch (error) {
+      console.log(error);
+      this._loggerService.getLogger().error(`Error ${error}`);
+      throw new InternalServerError(
+        'An error occurred while interacting with the database.',
+      );
+    } finally {
+      await this._databaseService.disconnect();
+    }
+  }
+
 }

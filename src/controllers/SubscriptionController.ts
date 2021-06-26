@@ -44,4 +44,25 @@ export default class SubscriptionController extends BaseController {
       return this.sendErrorResponse(req, res, error);
     }
   }
+
+  async getAllSubscription(req: express.Request, res: express.Response) {
+    try {
+      //ToDo: add validation
+
+      const subscription = await this._subscriptionService.getAllSubscription();
+
+      //return response
+
+      return this.sendJSONResponse(
+        res,
+        null,
+        {
+          length: subscription.length,
+        },
+        subscription,
+      );
+    } catch (error) {
+      return this.sendErrorResponse(req, res, error);
+    }
+  }
 }

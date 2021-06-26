@@ -24,4 +24,8 @@ export class SubscriptionService implements ISubscriptionService {
   async getSubscription(subscriptionId: bigint): Promise<GetSubscription> {
     return this._subscriptionRepository.getSubscription(subscriptionId);
   }
+
+  async getAllSubscription(): Promise<GetSubscription[]> {
+    return this._subscriptionRepository.getAllSubscription()
+  }
 }
