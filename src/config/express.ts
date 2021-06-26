@@ -31,6 +31,7 @@ app.use('/test', routers.testRouter);
 app.use(`${ENV.API_ROOT}/customers`, routers.customerRouter);
 app.use(`${ENV.API_ROOT}/auth`, routers.authenticationRouter);
 app.use(`${ENV.API_ROOT}/users`, routers.userRouter);
+app.use(`${ENV.API_ROOT}/subscription`,routers.subscriptionRouter);
 // Use error handling middleware
 app.use(errorHandler);
 

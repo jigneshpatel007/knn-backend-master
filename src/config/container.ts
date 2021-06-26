@@ -24,7 +24,7 @@ import { JwtService } from '../services/JwtService';
 import { IJwtService } from '../interfaces/IJwtService';
 import { ISubscriptionRepository } from '../interfaces/ISubscriptionRepository';
 import { SubscriptionRepository } from '../repositories/SubscriptionRepository';
-import { ISubscriptionService } from '../interfaces/ISubscriptionService';
+import ISubscriptionService from '../interfaces/ISubscriptionService';
 import { SubscriptionService } from '../services/SubscriptionService';
 
 const iocContainer = new Container();
