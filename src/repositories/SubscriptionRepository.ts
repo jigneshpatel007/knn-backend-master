@@ -5,7 +5,7 @@ import { NotFound } from '../errors/NotFound';
 import { IDatabaseService } from '../interfaces/IDatabaseService';
 import { ILoggerService } from '../interfaces/ILoggerService';
 import { ISubscriptionRepository } from '../interfaces/ISubscriptionRepository';
-import { GetSubscription } from '../types/Subscription';
+import { CreateUserSubscription, GetSubscription } from '../types/Subscription';
 
 @injectable()
 export class SubscriptionRepository implements ISubscriptionRepository {
@@ -94,4 +94,34 @@ export class SubscriptionRepository implements ISubscriptionRepository {
     }
   }
 
+  async createUserSubscription(
+    newUserSubscription: CreateUserSubscription,
+  ): Promise<boolean> {
+    try {
+      // Get the database client
+      const client = this._databaseService.Client();
+
+      const createUserSubscription = await client.userSubscription.create({
+        data: {
+          subscriptionId: newUserSubscription.id,
+          userId: newUserSubscription.id,
+          title: newUserSubscription.title,
+          description: newUserSubscription.description,
+          type: newUserSubscription.type,
+          noOfBook: newUserSubscription.noOfBook,
+          price: newUserSubscription.price,
+        },
+      });
+
+      return createUserSubscription !== null;
+    } catch (error) {
+      console.log(error);
+      this._loggerService.getLogger().error(`Error ${error}`);
+      throw new InternalServerError(
+        'An error occurred while interacting with the database.',
+      );
+    } finally {
+      await this._databaseService.disconnect();
+    }
+  }
 }
